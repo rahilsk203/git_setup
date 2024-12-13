@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# User details
+USERNAME="Enter username"
+TOKEN="Enter token"
+
+# Take repository name input
+echo "Enter repository name to delete: "
+read REPO_NAME
+
+# GitHub API URL
+API_URL="https://api.github.com/repos/$USERNAME/$REPO_NAME"
+
+# Delete repository
+echo "Deleting repository '$REPO_NAME'..."
+curl -X DELETE -u "$USERNAME:$TOKEN" $API_URL
+
+# Check if deletion was successful
+if [ $? -eq 0 ]; then
+  echo "Repository '$REPO_NAME' deleted successfully!"
+else
+  echo "Failed to delete repository '$REPO_NAME'. Please check your credentials and repository name."
+fi

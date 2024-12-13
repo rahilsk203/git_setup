@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# User details
+USERNAME="enter user name"
+
+# Take repository name input
+echo "Enter repository name: "
+read REPO_NAME
+
+# Check if GitHub CLI is installed
+if ! command -v gh &> /dev/null; then
+    echo "GitHub CLI (gh) is not installed. Please install it and try again."
+    exit 1
+fi
+
+# Create a new GitHub repository
+echo "Creating repository '$REPO_NAME' on GitHub..."
+gh repo create "$REPO_NAME" --public --confirm
+
+# Create a new directory and initialize the repository
+mkdir $REPO_NAME
+cd $REPO_NAME
+git init
+echo "# $REPO_NAME" > README.md
+git add .
+git commit -m "Initial commit"
+
+# Push to the new GitHub repository
+git branch -M main
+git remote add origin https://github.com/$USERNAME/$REPO_NAME.git
+git push -u origin main
+
+# Move back and clone the repository
+cd ..
+echo "Cloning the repository..."
+rm -rf $REPO_NAME # Clean up existing directory to avoid conflicts
+git clone https://github.com/$USERNAME/$REPO_NAME.git
+
+# Enter the cloned repository folder
+cd $REPO_NAME
+echo "Repository '$REPO_NAME' cloned and entered successfully!"
