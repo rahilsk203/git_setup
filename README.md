@@ -38,8 +38,9 @@ Guide to generate token.
 
 Alternatively, use GitHub CLI (gh) to log in securely.
 
-3.git config --global user.name "Enter user name"
-4.git config --global user.email "Enter the email"
+3. git config --global user.name "Enter user name"
+
+4. git config --global user.email "Enter the email"
 
 
 
